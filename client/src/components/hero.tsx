@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export function Hero() {
   return (
-    <div className="relative w-full h-[90vh] min-h-[600px] flex flex-col justify-between border-b border-[#333]/30 bg-[#141414]">
+    <div className="relative w-full h-[90vh] min-h-[600px] flex flex-col justify-between bg-[#141414]">
       <HeroBackground />
       
       {/* Header Area */}
@@ -58,6 +58,19 @@ export function Hero() {
             </Button>
           </div>
         </motion.div>
+      </div>
+
+      {/* Hero Curve - Netflix Style Arc */}
+      <div className="relative w-full h-[100px] overflow-hidden">
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150vw]"
+          style={{
+            height: "100px",
+            borderTop: "4px solid",
+            borderImage: "linear-gradient(90deg, #210d16 0%, #b82869 16%, #e50914 50%, #b82869 84%, #210d16 100%) 1",
+            borderRadius: "50% 100% / 50% 100%",
+          }}
+        />
       </div>
     </div>
   );

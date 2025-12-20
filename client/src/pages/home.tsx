@@ -16,6 +16,13 @@ export default function Home() {
     containScroll: "trimSnaps" 
   });
 
+  const [emblaRefTrending, emblaApiTrending] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+    dragFree: true,
+    containScroll: "trimSnaps"
+  });
+
   // Example drinks if database is empty for visual demo
   const demoDrinks = [
     { id: 1, name: "Neon Sunset", description: "Vodka, Peach Schnapps, Cranberry, Orange", price: 1200, image: "https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=800&auto=format&fit=crop&q=60", category: "Cocktail" },
@@ -30,11 +37,59 @@ export default function Home() {
     { id: 10, name: "Mojito", description: "White Rum, Mint, Lime, Soda", price: 1250, image: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=800&auto=format&fit=crop&q=60", category: "Classic" },
   ];
 
+  const trendingImages = [
+    "https://images.unsplash.com/photo-1514432324607-2e467f4af445?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1447702341674-5f1f0c14e6d7?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1516594915650-c5b8e6d8e6f5?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1504681869696-d977e0531cf1?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1514821985223-2f8714e4c92a?w=400&h=600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1516575334481-f410295afbc1?w=400&h=600&auto=format&fit=crop",
+  ];
+
   const displayDrinks = (drinks && drinks.length > 0) ? drinks : demoDrinks;
 
   return (
     <div className="min-h-screen bg-[#141414] text-white">
       <Hero />
+
+      {/* Trending Now Section */}
+      <Section className="border-t border-white/5">
+        <div className="mb-8 px-2">
+          <h2 className="text-3xl font-bold mb-2">Trending Now</h2>
+          <p className="text-gray-400">The hottest moments at Balkaz</p>
+        </div>
+
+        <div className="relative hide-scrollbar" ref={emblaRefTrending}>
+          <div className="flex touch-pan-y cursor-grab active:cursor-grabbing gap-5 py-4">
+            {trendingImages.map((image, index) => (
+              <div key={index} className="flex-shrink-0 w-[200px] h-[300px] relative group">
+                <img
+                  src={image}
+                  alt={`Trending ${index + 1}`}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+                {/* Dark overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-lg" />
+                {/* Number at bottom-left */}
+                <div
+                  className="absolute bottom-4 left-4 text-5xl font-black"
+                  style={{
+                    WebkitTextStroke: "2px white",
+                    color: "#141414",
+                    lineHeight: "1",
+                  }}
+                >
+                  {index + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
 
       {/* Drinks Grid Section */}
       <Section className="border-t border-white/5">
