@@ -2,22 +2,30 @@ import { useEvents } from "@/hooks/use-data";
 import { Section } from "./ui/section";
 import { Loader2, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
-import { format } from "date-fns";
+import { format, addDays, addWeeks, startOfWeek } from "date-fns";
 
 export function EventsSection() {
   const { data: events, isLoading } = useEvents();
 
-  // Create a realistic display of a week if no data exists
-  // In a real app, you would process the fetched events
-  const days = [
-    { name: "Monday", date: "Oct 23", status: "Available" },
-    { name: "Tuesday", date: "Oct 24", status: "Booked", bookedBy: "Private Party" },
-    { name: "Wednesday", date: "Oct 25", status: "Available" },
-    { name: "Thursday", date: "Oct 26", status: "Booked", bookedBy: "Corporate Event" },
-    { name: "Friday", date: "Oct 27", status: "Booked", bookedBy: "Birthday Bash" },
-    { name: "Saturday", date: "Oct 28", status: "Booked", bookedBy: "VIP Night" },
-    { name: "Sunday", date: "Oct 29", status: "Available" },
-  ];
+  // Build a display for next week (Monday -> Sunday) when no remote events exist
+  const today = new Date();
+  const startNextWeek = startOfWeek(addWeeks(today, 1), { weekStartsOn: 1 }); // next Monday
+
+  const bookedMap: Record<number, string> = {
+    1: "Private Party", // Tuesday
+    3: "Corporate Event", // Thursday
+    4: "Birthday Bash", // Friday
+    5: "VIP Night", // Saturday
+  };
+
+  const days = Array.from({ length: 7 }).map((_, i) => {
+    const d = addDays(startNextWeek, i);
+    const name = format(d, "EEEE");
+    const date = format(d, "MMM d");
+    const status = bookedMap[i] ? "Booked" : "Available";
+    const bookedBy = bookedMap[i];
+    return { name, date, status, bookedBy };
+  });
 
   if (isLoading) {
     return (

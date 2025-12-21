@@ -60,17 +60,25 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Hero Curve - Netflix Style Arc */}
-      <div className="relative w-full h-[100px] overflow-hidden">
-        <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[150vw]"
-          style={{
-            height: "100px",
-            borderTop: "4px solid",
-            borderImage: "linear-gradient(90deg, #210d16 0%, #b82869 16%, #e50914 50%, #b82869 84%, #210d16 100%) 1",
-            borderRadius: "50% 100% / 50% 100%",
-          }}
-        />
+      {/* Netflix-style curved divider with gradient border */}
+      <div className="relative w-full overflow-hidden -mb-1 pointer-events-none" aria-hidden>
+        <svg className="w-full h-36 md:h-44 lg:h-56" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="heroGradientBorder" x1="0" x2="1">
+              <stop offset="0%" stopColor="#210d16" />
+              <stop offset="25%" stopColor="#b82869" />
+              <stop offset="50%" stopColor="#e50914" />
+              <stop offset="75%" stopColor="#b82869" />
+              <stop offset="100%" stopColor="#210d16" />
+            </linearGradient>
+          </defs>
+
+          {/* Soft fill to blend hero into the section below */}
+          <path d="M0,160 C360,200 1080,120 1440,160 L1440,320 L0,320 Z" fill="rgba(20,20,20,0.95)" />
+
+          {/* Gradient stroke to act like Netflix borderline */}
+          <path d="M0,160 C360,200 1080,120 1440,160" fill="none" stroke="url(#heroGradientBorder)" strokeWidth="6" strokeLinecap="round" />
+        </svg>
       </div>
     </div>
   );
