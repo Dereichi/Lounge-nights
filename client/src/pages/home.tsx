@@ -182,7 +182,7 @@ export default function Home() {
       <Hero />
 
       {/* Trending Now Section */}
-      <Section className="bg-black">
+      <Section noBorder className="bg-[#141414] pt-0">
         <div className="mb-8 px-2">
           <h2 className="text-3xl font-bold mb-2">Trending Now</h2>
           <p className="text-gray-400">The hottest moments at Balkaz</p>
