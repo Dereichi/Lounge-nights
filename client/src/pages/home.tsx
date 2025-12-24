@@ -507,7 +507,7 @@ export default function Home() {
                 </button>
               )}
 
-              <div ref={drinksScrollRef} className="flex touch-pan-y cursor-grab active:cursor-grabbing py-4" style={{ scrollBehavior: 'smooth', overflowX: 'auto' }}>
+              <div ref={drinksScrollRef} className="flex touch-pan-y cursor-grab active:cursor-grabbing gap-5 py-4 select-none hide-scrollbar" style={{ scrollBehavior: 'smooth', overflowX: 'auto' }}>
                 {displayDrinks.map((drink, idx) => (
                   <div key={drink.id} style={idx === displayDrinks.length - 1 ? { marginRight: '-60px' } : undefined}>
                     <DrinkCard key={drink.id} drink={drink} />
