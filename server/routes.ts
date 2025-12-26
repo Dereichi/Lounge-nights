@@ -13,6 +13,49 @@ export async function registerRoutes(
     res.json(drinks);
   });
 
+  app.post(api.drinks.create.path, async (req, res) => {
+    try {
+      const drinkData = api.drinks.create.body.parse(req.body);
+      const drink = await storage.createDrink(drinkData);
+      res.status(201).json(drink);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid drink data", error: error.message });
+    }
+  });
+
+  app.patch(api.drinks.update.path.replace(':id', ':id'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      const drinkId = parseInt(id);
+      const updateData = api.drinks.update.body.parse(req.body);
+
+      const drink = await storage.updateDrink(drinkId, updateData);
+      if (!drink) {
+        return res.status(404).json({ message: "Drink not found" });
+      }
+
+      res.json(drink);
+    } catch (error) {
+      res.status(400).json({ message: "Invalid update data", error: error.message });
+    }
+  });
+
+  app.delete(api.drinks.delete.path.replace(':id', ':id'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      const drinkId = parseInt(id);
+
+      const deleted = await storage.deleteDrink(drinkId);
+      if (!deleted) {
+        return res.status(404).json({ message: "Drink not found" });
+      }
+
+      res.status(204).send();
+    } catch (error) {
+      res.status(400).json({ message: "Invalid drink ID", error: error.message });
+    }
+  });
+
   app.get(api.events.list.path, async (req, res) => {
     const events = await storage.getEvents();
     res.json(events);
@@ -24,7 +67,7 @@ export async function registerRoutes(
     if (existingDrinks.length === 0) {
       const drinksData = [
         { name: "Neon Nightmare", description: "A glowing blue cocktail", price: 1200, category: "Cocktail", image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&auto=format&fit=crop" },
-        { name: "Crimson Crush", description: "Red berry mix with vodka", price: 1400, category: "Cocktail", image: "https://images.unsplash.com/photo-1536935338788-843bb52887f8?w=400&auto=format&fit=crop" },
+        { name: "Crimson Crush", description: "Red berry mix with vodka", price: 135000, category: "Cocktail", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80" },
         { name: "Midnight Mule", description: "Dark rum ginger beer", price: 1100, category: "Cocktail", image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&auto=format&fit=crop" },
         { name: "Electric Lemonade", description: "Blue curacao and lemonade", price: 1300, category: "Cocktail", image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&auto=format&fit=crop" },
         { name: "Sunset Spritz", description: "Aperol and prosecco", price: 1500, category: "Cocktail", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&auto=format&fit=crop" },

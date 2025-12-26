@@ -60,23 +60,67 @@ export default function Home() {
     return Array.from({ length: 10 }, (_, i) => {
       const theme = getTrendingSvg(i);
       return (
-        <div key={i} className="flex-none w-44 md:w-52 relative group cursor-pointer">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 rounded-lg"/>
-          <div className="absolute top-4 left-4 z-20">
-            {getNightlifeIcon(i)}
+        <div key={i} className="flex-none" style={{ width: '180px', height: '250px', position: 'relative', marginRight: '40px' }}>
+          {/* Massive Number Behind */}
+<div 
+    className="font-black"
+    style={{
+      position: 'absolute',
+      left: '-35px',
+      bottom: '-10px',
+      zIndex: 1,
+              fontSize: '200px',
+              color: 'transparent',
+              WebkitTextStroke: '2px rgba(255,255,255,0.5)',
+              fontFamily: 'Bebas Neue'
+            }}
+          >
+            {i + 1}
           </div>
-          <img 
-            src={`https://images.unsplash.com/photo-${1514432324607 + i}-2e467f4af445?w=400&h=600&auto=format&fit=crop`}
-            alt={theme.name}
-            className="w-full h-64 object-cover rounded-lg"
-            loading="lazy"
-          />
-          <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
-            <h3 className="text-white font-bold text-lg mb-1" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
-              {theme.name}
-            </h3>
-            <p className="text-white/80 text-sm">{theme.description}</p>
-            <p className="text-red-500 font-bold mt-2">${theme.price / 100}</p>
+          
+          {/* Image Card */}
+          <div 
+            className="rounded-lg overflow-hidden"
+            style={{
+              position: 'relative',
+              zIndex: 10,
+              marginLeft: '40px',
+              aspectRatio: '2/3',
+              overflow: 'hidden',
+              borderRadius: '8px'
+            }}
+          >
+            <img 
+              src={theme.image}
+              alt=""
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+              loading="lazy"
+            />
+            {/* Bottom Scrim */}
+            <div 
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                width: '100%',
+                height: '50%',
+                zIndex: 30,
+                background: 'linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 60%)'
+              }}
+            />
+            {/* Text Content Inside Scrim */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 z-40">
+              <h3 className="text-white font-bold text-lg mb-1" style={{ fontFamily: 'Bebas Neue, sans-serif' }}>
+                {theme.name}
+              </h3>
+              <p className="text-white/80 text-sm mb-2">{theme.description}</p>
+              <p className="font-bold text-lg" style={{ color: '#E50914' }}>
+                ₦{theme.price.toLocaleString()}
+              </p>
+            </div>
           </div>
         </div>
       );
@@ -87,7 +131,9 @@ export default function Home() {
   const drinkCards = useMemo(() => {
     const drinksToShow = drinks && drinks.length > 0 ? drinks : demoDrinks;
     return drinksToShow.slice(0, 8).map((drink) => (
-      <DrinkCard key={drink.id} drink={drink} />
+      <div key={drink.id} className="flex-none w-72">
+        <DrinkCard drink={drink} />
+      </div>
     ));
   }, [drinks]);
 
@@ -123,51 +169,51 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen" style={{ backgroundColor: '#000000' }}>
       <Hero />
       
       {/* Trending Now Section */}
-      <Section className="py-16">
+      <Section className="py-16" noBorder={true} style={{ backgroundColor: '#000000' }}>
         <div className="mb-8 px-4 md:px-8 lg:px-16">
-          <h2 className="text-4xl md:text-6xl font-bold mb-4" style={{ fontFamily: 'Bebas Neue, sans-serif', color: '#E50914' }}>
+          <h2 className="text-4xl md:text-6xl font-bold mb-3" style={{ fontFamily: 'Bebas Neue, sans-serif', color: '#E50914' }}>
             TRENDING NOW
           </h2>
-          <p className="text-gray-400 text-lg">Hot tonight & always in demand</p>
+          <p className="text-gray-400 text-lg mb-12" style={{ color: '#999' }}>Hot tonight & always in demand</p>
         </div>
         
-        <div className="relative px-4 md:px-8 lg:px-16">
-          {trendingShowLeft && (
-            <button
+        <div className="relative px-4 md:px-8 lg:px-16 group">
+              className="absolute left-0 top-0 h-full w-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-30"
               onClick={() => handleTrendingScroll('left')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-black/80 rounded-full p-2 hover:bg-black/60 transition-colors"
-              style={{ marginLeft: '-20px' }}
+              style={{
+                background: 'rgba(0,0,0,0.5)'
+              }}
             >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </div>
           )}
           
           <div 
             ref={trendingScrollRef}
-            className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth"
+            className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth items-end"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {trendingCards}
           </div>
           
-          {trendingShowRight && (
-            <button
+              className="absolute right-0 top-0 h-full w-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-30"
               onClick={() => handleTrendingScroll('right')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-black/80 rounded-full p-2 hover:bg-black/60 transition-colors"
-              style={{ marginRight: '-20px' }}
+              style={{
+                background: 'rgba(0,0,0,0.5)'
+              }}
             >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+              <ChevronRight className="w-6 h-6 text-white" />
+            </div>
           )}
         </div>
       </Section>
 
       {/* Signature Drinks Section */}
-      <Section className="py-16">
+      <Section className="py-16" noBorder={true} style={{ backgroundColor: '#000000' }}>
         <div className="mb-8 px-4 md:px-8 lg:px-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-4" style={{ fontFamily: 'Bebas Neue, sans-serif', color: '#E50914' }}>
             SIGNATURE DRINKS
@@ -175,33 +221,31 @@ export default function Home() {
           <p className="text-gray-400 text-lg">Crafted by our expert mixologists</p>
         </div>
         
-        <div className="relative px-4 md:px-8 lg:px-16">
+        <div className="relative px-4 md:px-8 lg:px-16 group">
           {drinksShowLeft && (
-            <button
+            <div 
+              className="absolute left-0 top-0 h-full w-12 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-30"
               onClick={() => handleDrinksScroll('left')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-30 bg-black/80 rounded-full p-2 hover:bg-black/60 transition-colors"
-              style={{ marginLeft: '-20px' }}
             >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
+              <ChevronLeft className="w-6 h-6 text-white" />
+            </div>
           )}
           
           <div 
             ref={drinksScrollRef}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-x-auto"
+            className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {drinkCards}
           </div>
           
           {drinksShowRight && (
-            <button
+            <div 
+              className="absolute right-0 top-0 h-full w-12 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer z-30"
               onClick={() => handleDrinksScroll('right')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-30 bg-black/80 rounded-full p-2 hover:bg-black/60 transition-colors"
-              style={{ marginRight: '-20px' }}
             >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+              <ChevronRight className="w-6 h-6 text-white" />
+            </div>
           )}
         </div>
       </Section>
@@ -209,7 +253,7 @@ export default function Home() {
       <EventsSection />
       
       {/* Footer */}
-      <footer className="bg-black border-t border-gray-800 py-12 px-4 md:px-8 lg:px-16">
+      <footer style={{ backgroundColor: '#000000' }} className="py-12 px-4 md:px-8 lg:px-16">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: 'Bebas Neue, sans-serif', color: '#E50914' }}>

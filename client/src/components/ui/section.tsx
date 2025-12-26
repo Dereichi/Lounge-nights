@@ -13,7 +13,7 @@ export function Section({ children, className, id, noBorder = false }: SectionPr
     <section 
       id={id}
       className={clsx(
-        "relative w-full overflow-hidden bg-[#141414] py-16 md:py-24",
+        "relative w-full overflow-hidden cinematic-gradient py-20 md:py-32 transition-all duration-700",
         !noBorder && "border-b border-white/10",
         className
       )}

@@ -1,4 +1,5 @@
 import { db } from "./db";
+import { eq } from "drizzle-orm";
 import {
   drinks,
   events,
@@ -11,6 +12,8 @@ import {
 export interface IStorage {
   getDrinks(): Promise<Drink[]>;
   createDrink(drink: InsertDrink): Promise<Drink>;
+  updateDrink(id: number, drink: Partial<InsertDrink>): Promise<Drink | undefined>;
+  deleteDrink(id: number): Promise<boolean>;
   getEvents(): Promise<Event[]>;
   createEvent(event: InsertEvent): Promise<Event>;
 }
@@ -23,6 +26,16 @@ export class DatabaseStorage implements IStorage {
   async createDrink(insertDrink: InsertDrink): Promise<Drink> {
     const [drink] = await db.insert(drinks).values(insertDrink).returning();
     return drink;
+  }
+
+  async updateDrink(id: number, updateData: Partial<InsertDrink>): Promise<Drink | undefined> {
+    const [drink] = await db.update(drinks).set(updateData).where(eq(drinks.id, id)).returning();
+    return drink;
+  }
+
+  async deleteDrink(id: number): Promise<boolean> {
+    const result = await db.delete(drinks).where(eq(drinks.id, id));
+    return result.rowCount > 0;
   }
 
   async getEvents(): Promise<Event[]> {

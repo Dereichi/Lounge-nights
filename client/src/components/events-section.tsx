@@ -29,14 +29,14 @@ export function EventsSection() {
 
   if (isLoading) {
     return (
-      <Section id="events" className="flex justify-center items-center min-h-[400px]">
+      <Section id="events" className="flex justify-center items-center min-h-[400px]" noBorder={true} style={{ backgroundColor: '#000000' }}>
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </Section>
     );
   }
 
   return (
-    <Section id="events" className="relative">
+    <Section id="events" className="relative" noBorder={true} style={{ backgroundColor: '#000000' }}>
       <div className="mb-12 text-center">
         <h2 className="text-3xl md:text-5xl font-bold mb-4">Upcoming Events</h2>
         <p className="text-gray-400 max-w-xl mx-auto">
@@ -45,7 +45,7 @@ export function EventsSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-        {days.map((day, idx) => (
+          {days.map((day, idx) => (
           <motion.div
             key={day.name}
             initial={{ opacity: 0, y: 20 }}
@@ -54,8 +54,8 @@ export function EventsSection() {
             transition={{ delay: idx * 0.1 }}
             className={`
               relative overflow-hidden rounded-lg p-6 min-h-[180px] flex flex-col justify-between
-              border border-white/10 bg-white/5 backdrop-blur-sm
-              hover:border-primary/50 hover:bg-white/10 transition-all duration-300
+              bg-white/5 backdrop-blur-sm
+              hover:bg-white/10 transition-all duration-300
               group
             `}
           >
@@ -95,13 +95,7 @@ export function EventsSection() {
         ))}
       </div>
 
-      {/* Testimonial Quote */}
-      <div className="mt-20 text-center max-w-4xl mx-auto border-t border-white/5 pt-12">
-        <blockquote className="text-2xl md:text-3xl font-serif italic text-gray-300 leading-relaxed">
-          "The atmosphere at Balkaz is unmatched. It's not just a club, it's an experience that stays with you."
-        </blockquote>
-        <p className="mt-4 font-bold text-primary">— Sarah J., VIP Member</p>
-      </div>
+      {/* testimonial removed as requested; layout collapses cleanly */}
     </Section>
   );
 }

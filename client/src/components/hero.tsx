@@ -14,7 +14,7 @@ export function Hero() {
           top: 0,
           left: 0,
           width: '100%',
-          zIndex: 50,
+          zIndex: 100,
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -24,18 +24,13 @@ export function Hero() {
         <motion.h1
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="tracking-wide uppercase text-shadow-cinematic"
           aria-label="Balkaz"
           style={{
-            position: 'absolute !important',
-            top: '28px !important',
-            left: '60px !important',
-            margin: '0 !important',
-            zIndex: '100 !important',
             fontFamily: "var(--font-display)",
             fontSize: "clamp(2rem, 5vw, 3rem)",
             fontWeight: 900,
             color: "#E50914",
+            margin: 0,
           }}
         >
           <span className="sr-only">Balkaz</span>
@@ -59,7 +54,7 @@ export function Hero() {
 
       {/* Hero Content */}
       <div
-        className="relative z-20 container mx-auto px-4 text-center"
+        className="relative z-20 px-4 text-center"
         style={{
           minHeight: '100vh',
           display: 'flex',
@@ -86,23 +81,45 @@ export function Hero() {
             <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600 mx-4">PARTY.</span>
             <span>LIVE.</span>
           </h2>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto font-light" style={{ marginTop: '24px' }}>
+          <p className="text-xl md:text-2xl text-gray-300 max-w-[600px] mx-auto font-light" style={{ marginTop: '24px' }}>
             Experience the ultimate nightlife atmosphere. Exclusive drinks,
             electric beats, and memories that last forever.
           </p>
 
           <div style={{ marginTop: '40px' }}>
-            <Button
-              size="lg"
-              className="text-lg px-10 py-8 bg-[#e50914] hover:bg-[#b20710] text-white font-bold rounded-md shadow-2xl transition-all duration-300 transform hover:scale-105"
-              onClick={() => {
-                document
-                  .getElementById("events")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              BOOK YOUR EVENT NOW
-            </Button>
+            <div className="flex flex-col md:flex-row items-center justify-center max-w-[600px] mx-auto gap-0 md:gap-2" style={{ boxShadow: '0 0 20px rgba(0,0,0,0.5)' }}>
+              <input
+                type="text"
+                placeholder="Enter your phone number to get on the list..."
+                className="w-full md:flex-1 px-4 py-4 text-white bg-black/50 border border-gray-400 rounded-t-md md:rounded-l-md md:rounded-tr-none focus:outline-none focus:border-white placeholder-gray-400"
+                style={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '16px',
+                  height: '56px'
+                }}
+              />
+              <button
+                className="w-full md:w-auto px-8 py-4 text-white font-semibold bg-[#E50914] hover:bg-[#b20710] border-0 rounded-b-md md:rounded-r-md md:rounded-bl-none transition-all duration-300 hover:brightness-90 flex items-center justify-center gap-3"
+                style={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontWeight: '600',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
+                  fontSize: '16px',
+                  height: '56px'
+                }}
+                onClick={() => {
+                  document
+                    .getElementById("events")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                BOOK NOW
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
+                  <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

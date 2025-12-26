@@ -10,13 +10,68 @@ export const errorSchemas = {
   }),
 };
 
+// Custom drink schema with price validation
+const drinkSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  description: z.string(),
+  price: z.number(),
+  image: z.string(),
+  category: z.string(),
+});
+
+// Create drink schema with price limit validation
+const createDrinkSchema = insertDrinkSchema.refine(
+  (data) => data.price <= 135000,
+  {
+    message: "Price cannot exceed ₦135,000",
+  }
+);
+
+// Update drink schema (partial) with price validation
+const updateDrinkSchema = z.object({
+  name: z.string().optional(),
+  description: z.string().optional(),
+  price: z.number().max(135000, "Price cannot exceed ₦135,000").optional(),
+  image: z.string().optional(),
+  category: z.string().optional(),
+});
+
 export const api = {
   drinks: {
     list: {
       method: 'GET' as const,
       path: '/api/drinks',
       responses: {
-        200: z.array(z.custom<typeof drinks.$inferSelect>()),
+        200: z.array(drinkSchema),
+      },
+    },
+    create: {
+      method: 'POST' as const,
+      path: '/api/drinks',
+      body: createDrinkSchema,
+      responses: {
+        201: drinkSchema,
+        400: errorSchemas.notFound,
+      },
+    },
+    update: {
+      method: 'PATCH' as const,
+      path: '/api/drinks/:id',
+      params: z.object({ id: z.string() }),
+      body: updateDrinkSchema,
+      responses: {
+        200: drinkSchema,
+        404: errorSchemas.notFound,
+      },
+    },
+    delete: {
+      method: 'DELETE' as const,
+      path: '/api/drinks/:id',
+      params: z.object({ id: z.string() }),
+      responses: {
+        204: z.null(),
+        404: errorSchemas.notFound,
       },
     },
   },
