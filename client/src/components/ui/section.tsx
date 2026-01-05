@@ -6,14 +6,16 @@ interface SectionProps {
   className?: string;
   id?: string;
   noBorder?: boolean;
+  style?: React.CSSProperties;
 }
 
-export function Section({ children, className, id, noBorder = false }: SectionProps) {
+export function Section({ children, className, id, noBorder = false, style }: SectionProps) {
   return (
-    <section 
+    <section
       id={id}
+      style={style}
       className={clsx(
-        "relative w-full overflow-hidden cinematic-gradient py-20 md:py-32 transition-all duration-700",
+        "relative w-full overflow-hidden py-0 transition-all duration-700",
         !noBorder && "border-b border-white/10",
         className
       )}

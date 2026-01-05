@@ -4,21 +4,25 @@ import { motion } from "framer-motion";
 
 export function Hero() {
   return (
-    <div className="relative w-full min-h-[100vh] bg-[#141414]">
+    <div className="relative w-full min-h-[100vh] bg-[#141414] flex items-center justify-center">
       <HeroBackground />
 
       {/* Header Area */}
-      <header 
+      <header
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
+          right: 0,
           width: '100%',
-          zIndex: 100,
+          paddingTop: '10px',
+          paddingLeft: '60px',
+          paddingRight: '60px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '28px 60px'
+          minHeight: '80px',
+          zIndex: 30
         }}
       >
         <motion.h1
@@ -31,6 +35,7 @@ export function Hero() {
             fontWeight: 900,
             color: "#E50914",
             margin: 0,
+            marginLeft: '90px'
           }}
         >
           <span className="sr-only">Balkaz</span>
@@ -40,10 +45,13 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
+          style={{
+            marginRight: '92px'
+          }}
         >
           <Button
-            className="bg-[#E50914] hover:bg-[#b20710] text-white font-semibold text-sm focus:outline-none focus:ring-0 border-0 shadow-none"
-            style={{ padding: "6px 16px", fontSize: "14px", borderRadius: "4px" }}
+            className="bg-[#E50914] hover:bg-[#b20710] text-white font-semibold focus:outline-none focus:ring-0 border-0 shadow-none"
+            style={{ padding: "1px 20px", fontSize: "13px", fontWeight: 500, borderRadius: "4px", display: "flex", alignItems: "center", lineHeight: 1 }}
             onClick={() => console.log("Sign up clicked")}
             aria-label="Sign up"
           >
@@ -53,113 +61,69 @@ export function Hero() {
       </header>
 
       {/* Hero Content */}
-      <div
-        className="relative z-20 px-4 text-center"
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-      >
+      <div className="relative z-20 w-full max-w-4xl px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="space-y-6"
+          className="flex flex-col items-center space-y-8 text-center w-full"
         >
           <h2
-            className="font-black text-white leading-[1.1] text-shadow-cinematic text-center"
-            style={{ 
-              fontFamily: 'var(--font-display)', 
+            className="text-white text-center"
+            style={{
+              fontFamily: 'var(--font-display)',
               letterSpacing: '0.03em',
-              fontSize: 'clamp(5rem, 8vw, 8rem)'
+              fontSize: 'clamp(5rem, 8vw, 8rem)',
+              lineHeight: 1.1
             }}
           >
-            <span>VIBE.</span>
-            <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600 mx-4">PARTY.</span>
-            <span>LIVE.</span>
+            <span className="font-bold mx-4">VIBE.</span>
+            <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600 mx-4 font-black" style={{ textShadow: '0 0 10px rgba(229, 9, 20, 0.3)' }}>PARTY.</span>
+            <span className="font-bold mx-4">LIVE.</span>
           </h2>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-[600px] mx-auto font-light" style={{ marginTop: '24px' }}>
-            Experience the ultimate nightlife atmosphere. Exclusive drinks,
-            electric beats, and memories that last forever.
-          </p>
+           <p className="text-lg md:text-xl text-gray-300 max-w-[600px] mx-auto font-light" style={{ lineHeight: '1.7', textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}>
+             Experience the ultimate nightlife atmosphere. Exclusive drinks,
+             electric beats, and memories that last forever.
+           </p>
 
-          <div style={{ marginTop: '40px' }}>
-            <div className="flex flex-col md:flex-row items-center justify-center max-w-[600px] mx-auto gap-0 md:gap-2" style={{ boxShadow: '0 0 20px rgba(0,0,0,0.5)' }}>
-              <input
-                type="text"
-                placeholder="Enter your phone number to get on the list..."
-                className="w-full md:flex-1 px-4 py-4 text-white bg-black/50 border border-gray-400 rounded-t-md md:rounded-l-md md:rounded-tr-none focus:outline-none focus:border-white placeholder-gray-400"
-                style={{
-                  fontFamily: 'Inter, system-ui, sans-serif',
-                  fontSize: '16px',
-                  height: '56px'
-                }}
+          <motion.button
+            className="bg-[#E50914] hover:bg-[#E50914] text-white font-semibold rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-3"
+            style={{
+              fontFamily: 'Inter',
+              fontWeight: '500',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              fontSize: '18px',
+              padding: '16px 24px',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(229, 9, 20, 0.4)' }}
+            onClick={() => {
+              document
+                .getElementById("events")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Reserve Your Spot
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4"
+            >
+              <path
+                d="M9 5l7 7-7 7"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
-              <button
-                className="w-full md:w-auto px-8 py-4 text-white font-semibold bg-[#E50914] hover:bg-[#b20710] border-0 rounded-b-md md:rounded-r-md md:rounded-bl-none transition-all duration-300 hover:brightness-90 flex items-center justify-center gap-3"
-                style={{
-                  fontFamily: 'Inter, system-ui, sans-serif',
-                  fontWeight: '600',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
-                  fontSize: '16px',
-                  height: '56px'
-                }}
-                onClick={() => {
-                  document
-                    .getElementById("events")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                BOOK NOW
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
-                  <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            </div>
-          </div>
+            </svg>
+          </motion.button>
         </motion.div>
       </div>
 
-      {/* Netflix-style curved divider with gradient border */}
-      <div
-        className="relative w-full overflow-hidden -mb-1 pointer-events-none translate-y-[6px] z-10"
-        aria-hidden
-      >
-        <svg
-          className="w-full h-36 md:h-44 lg:h-56"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <linearGradient id="heroGradientBorder" x1="0" x2="1">
-              <stop offset="0%" stopColor="#210d16" />
-              <stop offset="25%" stopColor="#b82869" />
-              <stop offset="50%" stopColor="#e50914" />
-              <stop offset="75%" stopColor="#b82869" />
-              <stop offset="100%" stopColor="#210d16" />
-            </linearGradient>
-          </defs>
-
-          {/* Soft fill to blend hero into the section below. Lowered curve to avoid intersecting headline */}
-          <path
-            d="M0,190 C360,230 1080,150 1440,190 L1440,320 L0,320 Z"
-            fill="rgba(20,20,20,0.95)"
-          />
-
-          {/* Gradient stroke to act like Netflix borderline */}
-          <path
-            d="M0,190 C360,230 1080,150 1440,190"
-            fill="none"
-            stroke="url(#heroGradientBorder)"
-            strokeWidth="6"
-            strokeLinecap="round"
-          />
-        </svg>
-      </div>
     </div>
   );
 }

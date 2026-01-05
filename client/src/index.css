@@ -6,7 +6,7 @@
 
 :root {
   /* Netflix-inspired Dark Palette */
-  --background: 0 0% 8%; /* #141414 - Netflix Dark Background */
+  --background: 0 0% 0%; /* #000000 - Pure Black Background */
   --foreground: 0 0% 90%;
 
   --primary: 350 80% 50%; /* Deep Red for accents/lights */
@@ -34,8 +34,14 @@
 
 @layer base {
   body {
-    @apply bg-[#141414] text-foreground antialiased selection:bg-primary/30 selection:text-white;
+    @apply bg-[#000000] text-foreground antialiased selection:bg-primary/30 selection:text-white;
     font-family: var(--font-body);
+    background-color: #000000 !important;
+  }
+
+  /* Force pure black on all sections and containers */
+  section, footer, main, div[style*="background"] {
+    background-color: #000000 !important;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -55,19 +61,19 @@
   .text-shadow-glow {
     text-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
   }
-  
+
   .text-shadow-cinematic {
     text-shadow: 0 0 20px rgba(229, 9, 20, 0.4), 0 0 40px rgba(229, 9, 20, 0.2);
   }
-  
+
   .glass-panel {
     @apply bg-black/40 backdrop-blur-md border border-white/10;
   }
-  
+
   .glass-panel-heavy {
     @apply bg-black/60 backdrop-blur-lg border border-white/20;
   }
-  
+
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -75,13 +81,47 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .cinematic-gradient {
-    background: linear-gradient(135deg, #141414 0%, #1a1a1a 50%, #0f0f0f 100%);
+    background: #000000;
   }
-  
+
   .neon-border {
     box-shadow: 0 0 20px rgba(229, 9, 20, 0.3), inset 0 0 20px rgba(229, 9, 20, 0.1);
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    /* Improve touch scrolling performance */
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Ensure minimum touch targets */
+    button, a, [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Prevent horizontal scroll issues */
+    body {
+      overflow-x: hidden;
+    }
+
+    /* Improve text rendering on mobile */
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  /* Tablet specific optimizations */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    /* Balanced touch targets for tablets */
+    button, a, [role="button"] {
+      min-height: 40px;
+      min-width: 40px;
+    }
   }
 }
 

@@ -250,17 +250,16 @@ export function DrinkCard({ drink }: DrinkCardProps) {
       {/* Image Container */}
       <div className="relative h-[65%] w-full overflow-hidden">
         {/* Real cocktail image */}
-        <img 
-          src={drink.image} 
+        <img
+          src={drink.image}
           alt={drink.name}
           className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-110"
-          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
       </div>
 
       {/* Content */}
-      <div className="absolute bottom-0 w-full p-5 flex flex-col h-[45%] justify-between bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a] to-transparent">
+      <div className="absolute bottom-0 w-full p-5 flex flex-col h-[45%] justify-between bg-[#1a1a1a]">
         <div>
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-xl font-bold text-white leading-tight hover:text-primary transition-colors">
@@ -275,8 +274,8 @@ export function DrinkCard({ drink }: DrinkCardProps) {
           </p>
         </div>
 
-        <Button 
-          className="w-full mt-4 bg-white/10 hover:bg-white text-white hover:text-black transition-all duration-300 font-semibold focus:outline-none focus:ring-0"
+        <Button
+          className="w-full mt-4 bg-[#E50914] hover:bg-[#b20710] text-white hover:text-white transition-all duration-300 font-semibold focus:outline-none focus:ring-0 border-0"
           onClick={() => console.log(`Bought ${drink.name}`)}
         >
           <ShoppingCart className="w-4 h-4 mr-2" />

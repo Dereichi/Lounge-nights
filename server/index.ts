@@ -3,9 +3,25 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
+import { createServer as createHttpsServer } from "https";
+import fs from "fs";
+import path from "path";
 
 const app = express();
-const httpServer = createServer(app);
+
+// HTTPS configuration for production
+let server;
+if (process.env.NODE_ENV === "production" && process.env.HTTPS_KEY && process.env.HTTPS_CERT) {
+  // Custom HTTPS setup (if SSL certificates are provided)
+  const httpsOptions = {
+    key: fs.readFileSync(process.env.HTTPS_KEY),
+    cert: fs.readFileSync(process.env.HTTPS_CERT),
+  };
+  server = createHttpsServer(httpsOptions, app);
+} else {
+  // HTTP server (development) or platform-managed HTTPS (Railway, Render, etc.)
+  server = createServer(app);
+}
 
 declare module "http" {
   interface IncomingMessage {
@@ -61,7 +77,7 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  await registerRoutes(httpServer, app);
+  await registerRoutes(server, app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
@@ -78,21 +94,21 @@ app.use((req, res, next) => {
     serveStatic(app);
   } else {
     const { setupVite } = await import("./vite");
-    await setupVite(httpServer, app);
+    await setupVite(server, app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || "5000", 10);
-  httpServer.listen(
+  // Production: Use PORT env var (Railway, Render, etc.) or 80 for standard HTTP
+  // Development: Use 3000 for local development
+  const port = parseInt(process.env.PORT || (process.env.NODE_ENV === "production" ? "80" : "3000"), 10);
+  const protocol = process.env.NODE_ENV === "production" && process.env.HTTPS_KEY ? "https" : "http";
+
+  server.listen(
     {
       port,
       host: "0.0.0.0",
     },
     () => {
-      log(`serving on port ${port}`);
+      log(`serving on ${protocol}://0.0.0.0:${port}`);
     },
   );
 })();

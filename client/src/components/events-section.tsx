@@ -29,15 +29,15 @@ export function EventsSection() {
 
   if (isLoading) {
     return (
-      <Section id="events" className="flex justify-center items-center min-h-[400px]" noBorder={true} style={{ backgroundColor: '#000000' }}>
+      <Section id="events" className="flex justify-center items-center min-h-[400px] py-0" noBorder={true} style={{ backgroundColor: '#000000' }}>
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </Section>
     );
   }
 
   return (
-    <Section id="events" className="relative" noBorder={true} style={{ backgroundColor: '#000000' }}>
-      <div className="mb-12 text-center">
+    <Section id="events" className="relative py-0" noBorder={true} style={{ backgroundColor: '#000000' }}>
+      <div className="mb-12 py-16 text-center">
         <h2 className="text-3xl md:text-5xl font-bold mb-4">Upcoming Events</h2>
         <p className="text-gray-400 max-w-xl mx-auto">
           See what's happening at Balkaz this week. Book your spot before it's gone.

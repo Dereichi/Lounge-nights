@@ -19,7 +19,7 @@ export async function registerRoutes(
       const drink = await storage.createDrink(drinkData);
       res.status(201).json(drink);
     } catch (error) {
-      res.status(400).json({ message: "Invalid drink data", error: error.message });
+      res.status(400).json({ message: "Invalid drink data", error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
 
@@ -36,7 +36,7 @@ export async function registerRoutes(
 
       res.json(drink);
     } catch (error) {
-      res.status(400).json({ message: "Invalid update data", error: error.message });
+      res.status(400).json({ message: "Invalid update data", error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
 
@@ -52,7 +52,7 @@ export async function registerRoutes(
 
       res.status(204).send();
     } catch (error) {
-      res.status(400).json({ message: "Invalid drink ID", error: error.message });
+      res.status(400).json({ message: "Invalid drink ID", error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
 

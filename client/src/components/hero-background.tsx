@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 
 export function HeroBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-[#0a0a0a]">
+    <div className="absolute inset-0 pointer-events-none z-0 bg-[#0a0a0a]">
       {/* Abstract Party Shapes SVG */}
       <svg
-        className="absolute w-full h-full opacity-60"
+        className="absolute w-full h-full opacity-40"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
@@ -30,8 +30,8 @@ export function HeroBackground() {
           fill="url(#neonGradient)"
           className="mix-blend-screen"
           animate={{
-            opacity: [0.3, 0.6, 0.3],
-            scaleX: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+            scaleX: [1, 1.1, 1],
           }}
           transition={{
             duration: 4,
@@ -39,20 +39,20 @@ export function HeroBackground() {
             ease: "easeInOut"
           }}
         />
-        
+
         {/* Floating Shapes */}
-        <motion.circle 
-          cx="20" cy="30" r="15" 
-          fill="#4b0082" 
-          fillOpacity="0.2" 
+        <motion.circle
+          cx="20" cy="30" r="15"
+          fill="#4b0082"
+          fillOpacity="0.1"
           filter="url(#glow)"
           animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
           transition={{ duration: 7, repeat: Infinity }}
         />
-        <motion.circle 
-          cx="80" cy="60" r="20" 
-          fill="#8b0000" 
-          fillOpacity="0.2" 
+        <motion.circle
+          cx="80" cy="60" r="20"
+          fill="#8b0000"
+          fillOpacity="0.1"
           filter="url(#glow)"
           animate={{ y: [0, 30, 0], x: [0, -10, 0] }}
           transition={{ duration: 9, repeat: Infinity }}
@@ -60,7 +60,7 @@ export function HeroBackground() {
       </svg>
       
       {/* Party Silhouettes */}
-      <div className="absolute bottom-0 w-full h-[60%] z-10 opacity-40">
+      <div className="absolute bottom-0 w-full h-[60%] z-10 opacity-25">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none" className="w-full h-full text-black fill-current">
              <path fillOpacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
              {/* Simple silhouettes represented as abstract crowd shapes */}
