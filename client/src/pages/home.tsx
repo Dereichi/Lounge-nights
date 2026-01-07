@@ -285,8 +285,8 @@ export default function Home() {
 
 
             {/* Left Arrow - Shows when scrolled past start, hides when back at start */}
-              <button
-                onClick={() => scroll('left')}
+            <button
+              onClick={() => scroll('left')}
                 className={`absolute left-4 top-1/2 -translate-y-1/2 z-40 w-6 h-16 sm:w-6 sm:h-20 md:w-6 md:h-24 bg-[#333333]/95 hover:bg-[#444444] active:bg-[#555555] text-white rounded-lg flex items-center justify-center transition-all duration-500 shadow-2xl backdrop-blur-sm touch-manipulation
                   ${showLeftArrow ? 'opacity-100 translate-x-0 scale-100 pointer-events-auto' : 'opacity-0 -translate-x-2 scale-95 pointer-events-none'}`}
               style={{
@@ -300,8 +300,8 @@ export default function Home() {
             </button>
 
             {/* Right Arrow - Shows when not at end, hides when scrolled to end */}
-              <button
-                onClick={() => scroll('right')}
+            <button
+              onClick={() => scroll('right')}
                 className={`absolute right-4 top-1/2 -translate-y-1/2 z-40 w-6 h-16 sm:w-6 sm:h-20 md:w-6 md:h-24 bg-[#333333]/95 hover:bg-[#444444] active:bg-[#555555] text-white rounded-lg flex items-center justify-center transition-all duration-500 shadow-2xl backdrop-blur-sm touch-manipulation
                   ${showRightArrow ? 'opacity-100 translate-x-0 scale-100 pointer-events-auto' : 'opacity-0 translate-x-2 scale-95 pointer-events-none'}`}
               style={{
@@ -315,7 +315,7 @@ export default function Home() {
             </button>
 
             {/* Carousel Content */}
-              <div
+            <div
               ref={carouselRef}
               className="flex gap-[50px] overflow-x-auto scrollbar-hide scroll-smooth pb-6 sm:pb-8"
               style={{
@@ -361,7 +361,7 @@ export default function Home() {
       </section>
 
       <div style={{ marginBottom: '76px' }}>
-        <EventsSection />
+      <EventsSection />
       </div>
 
       {/* Footer */}

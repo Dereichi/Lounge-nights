@@ -39,19 +39,19 @@ export function HeroBackground() {
             ease: "easeInOut"
           }}
         />
-
+        
         {/* Floating Shapes */}
-        <motion.circle
-          cx="20" cy="30" r="15"
-          fill="#4b0082"
+        <motion.circle 
+          cx="20" cy="30" r="15" 
+          fill="#4b0082" 
           fillOpacity="0.1"
           filter="url(#glow)"
           animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
           transition={{ duration: 7, repeat: Infinity }}
         />
-        <motion.circle
-          cx="80" cy="60" r="20"
-          fill="#8b0000"
+        <motion.circle 
+          cx="80" cy="60" r="20" 
+          fill="#8b0000" 
           fillOpacity="0.1"
           filter="url(#glow)"
           animate={{ y: [0, 30, 0], x: [0, -10, 0] }}

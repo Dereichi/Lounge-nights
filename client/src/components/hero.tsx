@@ -70,8 +70,8 @@ export function Hero() {
         >
           <h2
             className="text-white text-center"
-            style={{
-              fontFamily: 'var(--font-display)',
+            style={{ 
+              fontFamily: 'var(--font-display)', 
               letterSpacing: '0.03em',
               fontSize: 'clamp(5rem, 8vw, 8rem)',
               lineHeight: 1.1
@@ -88,23 +88,23 @@ export function Hero() {
 
           <motion.button
             className="bg-[#E50914] hover:bg-[#E50914] text-white font-semibold rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-3"
-            style={{
+                style={{
               fontFamily: 'Inter',
               fontWeight: '500',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  textTransform: 'uppercase',
               fontSize: '18px',
               padding: '16px 24px',
               border: 'none',
               cursor: 'pointer'
             }}
             whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(229, 9, 20, 0.4)' }}
-            onClick={() => {
-              document
-                .getElementById("events")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
+                onClick={() => {
+                  document
+                    .getElementById("events")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
             Reserve Your Spot
             <svg
               viewBox="0 0 24 24"
@@ -119,7 +119,7 @@ export function Hero() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-            </svg>
+                </svg>
           </motion.button>
         </motion.div>
       </div>
