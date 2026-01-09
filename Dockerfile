@@ -13,11 +13,11 @@ RUN npm ci --only=production --legacy-peer-deps
 # Copy source code
 COPY . .
 
-# Build the application
+# Build the client application
 RUN npm run build
 
 # Expose port 80
 EXPOSE 80
 
 # Start the application
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]

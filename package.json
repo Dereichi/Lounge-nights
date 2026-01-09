@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsx server/index.ts",
-    "build": "npx vite build && npx esbuild server/index.ts --platform=node --bundle --format=cjs --outfile=dist/index.cjs --external:@shared/* --external:express --external:ws",
-    "start": "cross-env NODE_ENV=production node dist/index.cjs",
+    "build": "npx vite build",
+    "start": "cross-env NODE_ENV=production npx tsx server/index.ts",
     "start:prod": "cross-env NODE_ENV=production tsx server/index.ts",
     "check": "tsc",
     "db:push": "drizzle-kit push"
