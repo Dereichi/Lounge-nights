@@ -4,11 +4,17 @@ import * as schema from "@shared/schema";
 
 const { Pool } = pg;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
+// For production deployments, make DATABASE_URL optional during build
+// The actual connection will be tested when the app starts
+if (!process.env.DATABASE_URL && process.env.NODE_ENV === "production") {
+  console.warn("DATABASE_URL not set in production. Database features will be disabled.");
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool, { schema });
+export const pool = process.env.DATABASE_URL ? new Pool({
+  connectionString: process.env.DATABASE_URL,
+  // Add connection timeout for production
+  connectionTimeoutMillis: 5000,
+  query_timeout: 10000,
+}) : null;
+
+export const db = pool ? drizzle(pool, { schema }) : null;

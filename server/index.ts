@@ -97,9 +97,9 @@ app.use((req, res, next) => {
     await setupVite(server, app);
   }
 
-  // Production: Use PORT env var (Railway, Render, etc.) or 80 for standard HTTP
-  // Development: Use 3000 for local development
-  const port = parseInt(process.env.PORT || (process.env.NODE_ENV === "production" ? "80" : "3000"), 10);
+  // Use PORT environment variable (Railway, Render, etc.) or default to 80 for production
+  // This matches the deployment platform's expected port
+  const port = parseInt(process.env.PORT || "80", 10);
   const protocol = process.env.NODE_ENV === "production" && process.env.HTTPS_KEY ? "https" : "http";
 
   server.listen(
@@ -107,7 +107,11 @@ app.use((req, res, next) => {
       port,
       host: "0.0.0.0",
     },
-    () => {
+    (err) => {
+      if (err) {
+        console.error("Failed to start server:", err);
+        process.exit(1);
+      }
       log(`serving on ${protocol}://0.0.0.0:${port}`);
     },
   );
