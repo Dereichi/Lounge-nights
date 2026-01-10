@@ -1,4 +1,4 @@
-# Use Node.js 18 LTS
+# Use Node.js 18 LTS - Updated for Railway deployment
 FROM node:18-alpine
 
 # Set working directory
@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-    # Install dependencies
-    RUN npm install --omit=dev --legacy-peer-deps
+# Install dependencies (updated to avoid npm ci issues)
+RUN npm install --omit=dev --legacy-peer-deps
 
 # Copy source code
 COPY . .
