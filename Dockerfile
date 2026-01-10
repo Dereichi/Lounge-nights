@@ -7,14 +7,17 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies (updated to avoid npm ci issues)
-RUN npm install --omit=dev --legacy-peer-deps
+# Install all dependencies (including dev dependencies needed for build)
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
 
 # Build the client application
 RUN npm run build
+
+# Remove dev dependencies to reduce image size
+RUN npm prune --omit=dev
 
 # Expose port 80
 EXPOSE 80
